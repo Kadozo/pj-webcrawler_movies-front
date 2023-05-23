@@ -6,30 +6,29 @@ import {
   InformationBox,
   StyledCardHeader,
 } from "./style";
-export default function Card() {
+export default function Card({img, title, start_year, end_year, genres, imdb_rating, descripion}) {
   return (
     <StyledCard>
       <MediaBox>
         <CardMedia
           component="img"
-          image="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSU9oDFhGM-tcSSsqNfZi23Ckj71wynxFk1IWqL9aHo2YhHdtQV"
+          image={img}
           alt="cover"
         />
       </MediaBox>
       <InformationBox>
         <StyledCardHeader
-          title="Casa de Cera"
-          subheader="2005"
+          title={title}
+          subheader={start_year + (end_year ? " - " + end_year : "")}
         ></StyledCardHeader>
         <Typography fontSize={"small"} variant="caption" color={"GrayText"}>
-          5,4/10
+          {imdb_rating + "/10"}
         </Typography>
         <Typography fontSize={"medium"} variant="subtitle1">
-          Um grupo de adolescentes ficam encalhados num estranho museu de cera e
-          logo deveram lutar para sobreviver.
+          {descripion}
         </Typography>
         <Typography fontSize={"small"} variant="caption">
-          Terror, Suspense
+          {genres.map(g => g)}
         </Typography>
       </InformationBox>
     </StyledCard>

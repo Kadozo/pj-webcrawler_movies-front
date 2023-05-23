@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Content, Image, Button } from "./styles";
 import {KeyboardArrowLeft, KeyboardArrowRight} from '@mui/icons-material';
 import SpinnerContainer from "spinner-container";
@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 import { imgWidth } from "../../utils/consts";
 
 const Carousel = ({data, loading = false}) => {
+    const [dataCarousel, setDataCarousel] = useState([]);
     const [isDrag, setIsDrag] = useState(false);
     const [prevPageX, setPrevPageX] = useState();
     const [prevScrollLeft, setPrevScrollLeft] = useState();
@@ -62,6 +63,10 @@ const Carousel = ({data, loading = false}) => {
         setShowBtnR(!(c.scrollLeft === c.scrollWidth - c.clientWidth));
     }
 
+    useEffect(() => {
+        if(data)
+            setDataCarousel(data);
+    }, [data]);
 
     return (
     <Container>
@@ -82,19 +87,9 @@ const Carousel = ({data, loading = false}) => {
                     isDrag={isDrag}
                     // onScroll={() => showButton()}
                 >
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BYWZiNTBlOTMtZTczZC00NjUwLWExYTQtY2U1ODBiOWMzM2ExXkEyXkFqcGdeQXVyMTUyNjIwMDEw.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BNjJiYjNhOGItNGZjYi00NWEzLTg1MGUtODk0NTJkM2QwNTFkXkEyXkFqcGdeQXVyMTQ3Mzk2MDg4.jpg" alt="img" draggable="false" />
-                    <Image src="https://m.media-amazon.com/images/M/MV5BYWZiNTBlOTMtZTczZC00NjUwLWExYTQtY2U1ODBiOWMzM2ExXkEyXkFqcGdeQXVyMTUyNjIwMDEw.jpg" alt="img" draggable="false" />
+                    {dataCarousel.map((src, i) => (
+                        <Image key={i} src={src} alt={"img_" + i} draggable={"false"} />
+                    ))}
                 </Content>
                 <Button show={showBtnR.toString()} variant="contained" right={"-25px"} onClick={() => handleButton("right")}>
                     <KeyboardArrowRight />
