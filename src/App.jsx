@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { Box, Tabs, Tab } from "@mui/material";
+import Carousel from "./components/carousel/Carousel";
 
 function App() {
   const [value, setValue] = useState("one");
@@ -24,6 +25,7 @@ function App() {
         <Tab value="two" label="Item Two" />
         <Tab value="three" label="Item Three" />
       </Tabs>
+      <Carousel />
     </Box>
   );
 }
