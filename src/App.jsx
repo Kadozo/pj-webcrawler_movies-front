@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Card from "./components/Card/Card";
-import { Box, Tabs, Tab, Container, Chip, Stack } from "@mui/material";
+import { Box, Tabs, Tab, Container } from "@mui/material";
 
 function App() {
   const [value, setValue] = useState("one");
