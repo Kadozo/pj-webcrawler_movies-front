@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import Carousel from "../../components/carousel/Carousel";
 import Card from "../../components/Card/Card";
-import { Button, Grid, TextField } from "@mui/material";
+import { Grid, InputAdornment, TextField } from "@mui/material";
 import SpinnerContainer from "spinner-container";
+import { Search } from "@mui/icons-material";
 
-const url = 'http://localhost:3333'
-// const url = 'http://ec2-15-229-9-6.sa-east-1.compute.amazonaws.com:3333'
+// const url = 'http://localhost:3333'
+const url = 'http://ec2-15-229-9-6.sa-east-1.compute.amazonaws.com:3333'
 
 export const Movies = (props) => {
     const [movies, setMovies] = useState([]);
@@ -14,7 +15,6 @@ export const Movies = (props) => {
     const [loadingSearch, setLoadingSearch] = useState(false)
     const [search, setSearch] = useState("");
     const [offsetList, setOffsetList] = useState(0);
-    const [offsetImage, setOffsetImage] = useState(0);
     const [loadingScroll, setLoadingScroll] = useState(false);
     const [full, setFull] = useState(false);
 
@@ -80,37 +80,45 @@ export const Movies = (props) => {
     }, [movies]);
 
     return (
-        <div>
-            <Carousel data={images} loading={loading} />
-            <Grid container marginTop={2} columnSpacing={2} marginBottom={2}>
-                <Grid item xs={8}>
-                    <TextField  fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
-                </Grid>
-                <Grid item container xs={4}>
-                    <Button fullWidth variant="contained" sx={{fontWeight: "bold", fontSize: "20px"}}>pesquisar</Button>
-                </Grid>
+      <div>
+        <Carousel data={images} loading={loading} />
+        <Grid container marginTop={2} columnSpacing={2} marginBottom={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+        </Grid>
+        <SpinnerContainer loading={loadingSearch}>
+          <Grid container>
+            {movies.map((movie, idx) => (
+              <Card
+                key={idx}
+                img={movie?.img}
+                title={movie?.title}
+                end_year={movie.end_year}
+                start_year={movie.start_year}
+                genres={movie?.genres}
+                imdb_rating={movie?.imdb_rating}
+                descripion={movie?.description}
+              />
+            ))}
+            <Grid item xs={12}>
+              <SpinnerContainer loading={loadingScroll}>
+                <i id="sentinela" style={movies.length < 10 ? { display: "none" } : {}} />
+              </SpinnerContainer>
             </Grid>
-            <SpinnerContainer loading={loadingSearch}>
-                <Grid container>
-                    {movies.map((movie, idx) => (
-                        <Card
-                            key={idx}
-                            img={movie?.img}
-                            title={movie?.title}
-                            end_year={movie.end_year}
-                            start_year={movie.start_year}
-                            genres={movie?.genres}
-                            imdb_rating={movie?.imdb_rating}
-                            descripion={movie?.description}
-                        />
-                    ))}
-                    <Grid item xs={12}>
-                        <SpinnerContainer loading={loadingScroll}>
-                                <i id="sentinela" style={ movies.length < 10 ? {display: "none"} : {}}/>
-                        </SpinnerContainer>
-                    </Grid>
-                </Grid>
-            </SpinnerContainer>
-        </div>
+          </Grid>
+        </SpinnerContainer>
+      </div>
     );
 }

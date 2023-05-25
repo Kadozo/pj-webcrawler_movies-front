@@ -7,6 +7,7 @@ export const Container = styled("div")`
 export const Content = styled("div")`
   white-space: nowrap;
   width: 100%;
+  min-height: 300px;
   background-color: #343F4F;
   font-size: 0px;
   overflow: hidden;
