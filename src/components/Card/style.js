@@ -3,6 +3,7 @@ import { Box, Card as CardMui, CardMedia, CardHeader } from "@mui/material";
 
 export const StyledCard = styled(CardMui)`
   display: flex;
+  width: 100%;
   margin-top: 20px;
 `;
 export const MediaBox = styled(Box)`

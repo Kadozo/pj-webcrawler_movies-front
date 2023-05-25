@@ -87,8 +87,8 @@ const Carousel = ({data, loading = false}) => {
                     isDrag={isDrag}
                     // onScroll={() => showButton()}
                 >
-                    {dataCarousel.map((src, i) => (
-                        <Image key={i} src={src} alt={"img_" + i} draggable={"false"} />
+                    {dataCarousel?.map((src, i) => (
+                        <Image key={i} src={src.img} alt={"img_" + i} draggable={"false"} />
                     ))}
                 </Content>
                 <Button show={showBtnR.toString()} variant="contained" right={"-25px"} onClick={() => handleButton("right")}>
