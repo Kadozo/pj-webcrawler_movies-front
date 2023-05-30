@@ -6,7 +6,7 @@ import SpinnerContainer from "spinner-container";
 import { Search } from "@mui/icons-material";
 
 // const url = 'http://localhost:3333'
-const url = "http://ec2-15-229-9-6.sa-east-1.compute.amazonaws.com:3333";
+const url = "https://mfdeveloper.com";
 
 export const Series = (props) => {
   const [series, setSeries] = useState([]);
@@ -20,7 +20,9 @@ export const Series = (props) => {
 
   const sendRequest = async (offset = null) => {
     setLoadingSearch(true);
-    const r = await (await fetch(url + `/watchable?type=series&title=${search}`)).json();
+    const r = await (
+      await fetch(url + `/watchable?type=series&title=${search}`)
+    ).json();
     setSeries(r.watchables);
     setFull(false);
     setOffsetList(0);
@@ -29,17 +31,24 @@ export const Series = (props) => {
 
   const infinitScroll = async () => {
     setLoadingScroll(true);
-    const r = await (await fetch(url + `/watchable?type=series&title=${search}&offset=${offsetList}`)).json();
+    const r = await (
+      await fetch(
+        url + `/watchable?type=series&title=${search}&offset=${offsetList}`
+      )
+    ).json();
 
     console.log("infinit scroll");
-    if (r?.watchables?.length > 0) setSeries((prev) => prev.concat(r.watchables));
+    if (r?.watchables?.length > 0)
+      setSeries((prev) => prev.concat(r.watchables));
     else setFull(true);
     setLoadingScroll(false);
   };
 
   const getImages = async () => {
     setLoading(true);
-    const r = await (await fetch(url + `/watchable?type=series&only_img=true`)).json();
+    const r = await (
+      await fetch(url + `/watchable?type=series&only_img=true`)
+    ).json();
     setImages(r.watchables);
     setLoading(false);
   };
@@ -110,7 +119,10 @@ export const Series = (props) => {
           ))}
           <Grid item xs={12}>
             <SpinnerContainer loading={loadingScroll}>
-              <i id="sentinela" style={series.length < 10 ? { display: "none" } : {}} />
+              <i
+                id="sentinela"
+                style={series.length < 10 ? { display: "none" } : {}}
+              />
             </SpinnerContainer>
           </Grid>
         </Grid>
